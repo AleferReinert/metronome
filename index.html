@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metrônome</title>
+    <link href="./css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="top">
+                <label>
+                    <span id="quarter-note">h</span>
+                    <span id="equal">=</span>
+                    <input type="text" id="current-bpm" value="120">
+                    <span>BPM</span>
+                </label>
+                <button id="play" title="Tocar">
+                    <svg id="svg-play" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M128,96v320l256-160L128,96L128,96z"/></g></svg>
+                    <svg id="svg-pause" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><rect height="320" width="79" x="128" y="96"/><rect height="320" width="79" x="305" y="96"/></g></svg>
+                </button>
+            </div>
+            <div>
+                <input id="tempo" type="range" min="30" max="280" value="120">
+            </div>
+            <div id="options">
+                <div class="column">
+                    <label for="beats">Time Signature</label>
+                    <div id="time-signature">
+                        <select id="beats">
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4" selected>4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                        <select id="note-value">
+                            <option value="2">2</option>
+                            <option value="1" selected>4</option>
+                            <option value="0.5">8</option>
+                            <option value="0.25">16</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="column sound-options">
+                    <div class="row">
+                        <label for="accent-sound">Accent sound:</label>
+                        <select id="accent-sound">
+                            <option value="./audio/high_wood_block.wav" selected>High Wood Block</option>
+                            <option value="./audio/low_wood_block.wav">Low Wood Block</option>
+                            <option value="./audio/rim_click.wav">Rim Click</option>
+                            <option value="./audio/hi-hat.wav">Hi-hat</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <label for="click-sound">Click sound:</label>
+                        <select id="click-sound">
+                            <option value="./audio/high_wood_block.wav">High Wood Block</option>
+                            <option value="./audio/low_wood_block.wav" selected>Low Wood Block</option>
+                            <option value="./audio/rim_click.wav">Rim Click</option>
+                            <option value="./audio/hi-hat.wav">Hi-hat</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <label for="odd-beats">Play only odd beats:</label>
+                        <input type="checkbox" id="odd-beats">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <ul id="lights">
+                <li><span class="number">1</span><span class="light"></span></li>
+                <li><span class="number">2</span><span class="light"></span></li>
+                <li><span class="number">3</span><span class="light"></span></li>
+                <li><span class="number">4</span><span class="light"></span></li>
+            </ul>
+        </div>
+        <div id="volumes">
+            <div class="column volume-1">
+                <span id="volume-1" class="volume-value">MAX</span>
+                <span class="range">
+                    <input type="range" value="1.0" max="1.0" min="0.0" step="0.1" id="range-1">
+                </span>
+                <span class="figure sprite"></span>
+            </div>
+            <div class="column volume-2">
+                <span id="volume-2" class="volume-value">MUTED</span>
+                <span class="range">
+                    <input type="range" value="0" max="1.0" min="0.0" step="0.1" id="range-2">
+                </span>
+                <span class="figure sprite"></span>
+            </div>
+            <div class="column volume-3">
+                <span id="volume-3" class="volume-value">MUTED</span>
+                <span class="range">
+                    <input type="range" value="0" max="1.0" min="0.0" step="0.1" id="range-3">
+                </span>
+                <span class="figure sprite"></span>
+            </div>
+            <div class="column volume-4">
+                <span id="volume-4" class="volume-value">MUTED</span>
+                <span class="range">
+                    <input type="range" value="0" max="1.0" min="0.0" step="0.1" id="range-4">
+                </span>
+                <span class="figure sprite"></span>
+            </div>
+        </div>
+    </div>
+    <audio id="beat-1" src="./audio/high_wood_block.wav" preload="auto"></audio>
+    <audio id="beat-1-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-1-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-1-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    
+    <audio id="beat-2" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="beat-2-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-2-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-2-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    
+    <audio id="beat-3" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="beat-3-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-3-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-3-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    
+    <audio id="beat-4" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="beat-4-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-4-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-4-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    
+    <audio id="beat-5" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="beat-5-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-5-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-5-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    
+    <audio id="beat-6" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="beat-6-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-6-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-6-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    
+    <audio id="beat-7" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="beat-7-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-7-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-7-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    
+    <audio id="beat-8" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="beat-8-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-8-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-8-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    
+    <audio id="beat-9" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="beat-9-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-9-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-9-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    
+    <audio id="beat-10" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="beat-10-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-10-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-10-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    
+    <audio id="beat-11" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="beat-11-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-11-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-11-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    
+    <audio id="beat-12" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="beat-12-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-12-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="beat-12-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    
+    <script type="module" src="./js/main.js"></script>
+</body>
+</html>
