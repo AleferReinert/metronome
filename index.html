@@ -8,26 +8,55 @@
     <link href="./css/styles.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="box">
-            <div class="top">
-                <label>
-                    <span id="quarter-note">h</span>
-                    <span id="equal">=</span>
-                    <input type="text" id="current-bpm" value="120">
-                    <span>BPM</span>
-                </label>
-                <button id="play" title="Tocar">
-                    <svg id="svg-play" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M128,96v320l256-160L128,96L128,96z"/></g></svg>
-                    <svg id="svg-pause" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><rect height="320" width="79" x="128" y="96"/><rect height="320" width="79" x="305" y="96"/></g></svg>
-                </button>
+    <header>
+        <div class="container">
+            <h1 id="logo">Metronome</h1>
+            <button id="btn-menu" title="Menu">
+                <svg id="svg-bars" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><g id="Navicon" transform="translate(330.000000, 232.000000)"><polygon class="st0" id="Fill-19" points="-321.8,-219 -274.3,-219 -274.3,-212.7 -321.8,-212.7    "/><polygon class="st0" id="Fill-20" points="-321.8,-203.2 -274.3,-203.2 -274.3,-196.8 -321.8,-196.8    "/><polygon class="st0" id="Fill-21" points="-321.8,-187.3 -274.3,-187.3 -274.3,-181 -321.8,-181"/></g></g></svg>
+                <svg id="svg-close" style="enable-background:new 0 0 64 64;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><g id="Icon-Close" transform="translate(381.000000, 231.000000)"><polyline class="st0" id="Fill-16" points="-370.7,-174.7 -373,-177 -327,-223 -324.7,-220.7 -370.7,-174.7    "/><polyline class="st0" id="Fill-17" points="-327,-174.7 -373,-220.7 -370.7,-223 -324.7,-177 -327,-174.7"/></g></g></svg>
+            </button>
+        </div>
+        <div id="menu">
+            <div class="container">
+                <h2>Options</h2>
+                <ul>
+                    <li>
+                        <label for="theme">Theme:</label>
+                        <select id="theme">
+                            <option value="light" selected>Light</option>
+                            <option value="dark">Dark</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="accent-sound">Accent sound:</label>
+                        <select id="accent-sound">
+                            <option value="./audio/high_wood_block.wav" selected>High Wood Block</option>
+                            <option value="./audio/low_wood_block.wav">Low Wood Block</option>
+                            <option value="./audio/rim_click.wav">Rim Click</option>
+                            <option value="./audio/hi-hat.wav">Hi-hat</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="click-sound">Click sound:</label>
+                        <select id="click-sound">
+                            <option value="./audio/high_wood_block.wav">High Wood Block</option>
+                            <option value="./audio/low_wood_block.wav" selected>Low Wood Block</option>
+                            <option value="./audio/rim_click.wav">Rim Click</option>
+                            <option value="./audio/hi-hat.wav">Hi-hat</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="odd-beats">Play only odd beats:</label>
+                        <input type="checkbox" id="odd-beats">
+                    </li>
+                </ul>
             </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
             <div>
-                <input id="tempo" type="range" min="30" max="280" value="120">
-            </div>
-            <div id="options">
-                <div class="column">
-                    <label for="beats">Time Signature</label>
+                <div class="top">
                     <div id="time-signature">
                         <select id="beats">
                             <option value="2">2</option>
@@ -49,131 +78,130 @@
                             <option value="0.25">16</option>
                         </select>
                     </div>
+                    <label>
+                        <svg id="svg-quarter-note" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" viewbox="0 0 14 41"> <g transform="translate(-440.95 -9.4689)">  <path d="m451.09 49.39c3.3958-1.82 5.2053-5.1146 4.0922-7.593-1.1873-2.6436-5.267-3.3897-9.1066-1.6654-3.8396 1.7244-5.9922 5.2694-4.8049 7.913 1.1873 2.6436 5.267 3.3897 9.1066 1.6654 0.23997-0.10777 0.48628-0.19874 0.71268-0.32007z" fill-rule="evenodd"/><path d="m454.73 43.056v-33.588" stroke="#000" stroke-width="1.5"/> </g></svg>
+                        <span id="equal">=</span>
+                        <input type="text" id="current-bpm" value="120">
+                        <span>BPM</span>
+                    </label>
+                    <button id="play" title="Tocar">
+                        <svg id="svg-play" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M128,96v320l256-160L128,96L128,96z"/></g></svg>
+                        <svg id="svg-pause" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><rect height="320" width="79" x="128" y="96"/><rect height="320" width="79" x="305" y="96"/></g></svg>
+                    </button>
                 </div>
-                <div class="column sound-options">
-                    <div class="row">
-                        <label for="accent-sound">Accent sound:</label>
-                        <select id="accent-sound">
-                            <option value="./audio/high_wood_block.wav" selected>High Wood Block</option>
-                            <option value="./audio/low_wood_block.wav">Low Wood Block</option>
-                            <option value="./audio/rim_click.wav">Rim Click</option>
-                            <option value="./audio/hi-hat.wav">Hi-hat</option>
-                        </select>
-                    </div>
-                    <div class="row">
-                        <label for="click-sound">Click sound:</label>
-                        <select id="click-sound">
-                            <option value="./audio/high_wood_block.wav">High Wood Block</option>
-                            <option value="./audio/low_wood_block.wav" selected>Low Wood Block</option>
-                            <option value="./audio/rim_click.wav">Rim Click</option>
-                            <option value="./audio/hi-hat.wav">Hi-hat</option>
-                        </select>
-                    </div>
-                    <div class="row">
-                        <label for="odd-beats">Play only odd beats:</label>
-                        <input type="checkbox" id="odd-beats">
-                    </div>
+                <div>
+                    <input id="tempo" type="range" min="30" max="280" value="120">
                 </div>
             </div>
+            <div class="main-middle">
+                <div id="count">--</div>
+                <ul id="lights">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+            <div id="volumes">
+                <div class="column">
+                    <span id="volume-1" class="volume-value">MAX</span>
+                    <span class="range">
+                        <input type="range" value="1.0" max="1.0" min="0.0" step="0.1" id="range-1">
+                    </span>
+                    <span class="figure">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 250 250" enable-background="new 0 0 250 250" xml:space="preserve">  <image  x="0" y="0"    href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAQAAAAi5ZK2AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmCRoQEiEWxkRIAAAELklEQVR42u3dvUtVYRzA8edeLcQwrASTgqaQCDMpQmhJw14kJwMDXQKXtsBo6D9oaG2IWqIahBoMi4SEIBCCUOnFFgkjAg2KMmrQ7mkQJJL0nuHeo8/3+xnvfR74wZfnnPsynFwSRJPPegCVn9GBjA5kdCCjAxkdyOhARgcyOpDRgYwOZHQgowMZHcjoQEYHMjqQ0YGMDmR0IKMDGR3I6EBGBzI6kNGBjA5kdCCjAxkdyOhARgcyOpDRgYwOZHQgowMZHcjoQEYHMjqQ0YGMDmR0IKMDGR3I6EBGBzI6kNGBjA5kdCCjAxkdyOhARgcyOpDRgYwOZHQgowMZHcjoQEYHMjqQ0YGMDmR0IKMDGR3I6EBGBzI6kNGBjA5kdCCjAxkdyOhARgcyOpDRgSqzHmC96eqpOb/4ZnAg6zlKKZdkPcE60zt2r7U1jOWynqOUvLwDGR3I6EBGBzI6kNGBjA5kdCCjAxkdyOhARgcyOpDRgYwOZHQgowMZHcjoQEYHMjqQ0YGMDmR0IKMDGR3I6EBGBzI6kNGBjA5kdCCjAxkdyOhARgcyOpDRgYwOZHQgowMZHcjoQEYHMjqQ0YGMDmR0IKMDGR3I6EBGBzI6kNGBjA5kdCCjAxkdyOhARgfCPlW5EFr3N7RUNeXrw9ZkvjC7OPP20dT7qJ+ruwwZveNY/f2R7Z9XvL43NF+qynq4MsA9SruzqzD0ZJX3D4aJEPujtFEnPVfb9+FxzeprJrIesgxAH+ROd+75eqemmJXfsx61xDDRuwdGh2eKXDub9bAlBrmnd18eurpY9OrKsBD1PR0R/WT786c/U+1IjL6xLYYDyVTKPXFHB9zT+66nTb4r65FLLPqvbLn87gtp97QVsp66tKI/6T03P6beM9+f9dSlFf09/UwynHJHRxiJ+o4OOOnjqXdUnMp65lKL/qRvThZSre/9UdyvdhtZ9NHrk7kUq4+EZ7n4/2eL/vK+L8XalvBiR/zJAdF33ih25fEwXpt8yXrecoj+8p7LN/+eXHNVPpx7eftwRdbDlkn0Jz0pbGqqXWPN0dDedheTHHDSQwihubHu3eh/3jsRqvsf3Ir8i/k/ENFDSMLZi9XXHua/Lb9SFw6FbYOvr7yaznq28oNEX5KEfF1b45aGX7OT03OfWKf7b6joWhL9BzmtZHQgowMZHcjoQEYHMjqQ0YGMDmR0IKMDGR3I6EBGBzI6kNGBjA5kdCCjAxkdyOhARgcyOpDRgYwOZHQgowMZHcjoQEYHMjqQ0YGMDmR0IKMDGR3I6EBGBzI6kNGBjA5kdCCjAxkdyOhARgcyOpDRgYwOZHQgowMZHcjoQEYHMjqQ0YGMDmR0IKMDGR3I6EBGBzI6kNGBjA5kdCCjAxkdyOhARgcyOpDRgYwOZHQgowMZHcjoQEYHMjqQ0YGMDvQHc3ZyqUh1srMAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDktMjZUMTY6MTg6MzMrMDA6MDAr9ndtAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA5LTI2VDE2OjE4OjMzKzAwOjAwWqvP0QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAASUVORK5CYII=" /></svg>
+                    </span>
+                </div>
+                <div class="column">
+                    <span id="volume-2" class="volume-value">MUTED</span>
+                    <span class="range">
+                        <input type="range" value="0" max="1.0" min="0.0" step="0.1" id="range-2">
+                    </span>
+                    <span class="figure">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 250 250" enable-background="new 0 0 250 250" xml:space="preserve">  <image  x="0" y="0"    href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAQAAAAi5ZK2AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfmCRoQEgvNfY2eAAALdUlEQVR42u2deWwVxx2Av2cCBEzAgIECSbgPh9OmokRpWiBcCUdToEAMLWmEKlVq0yNVlTZqS5ESpxVJ06at1KohaYo5Ay2k4RCBclVJKDjcVzgUbscmnMZctvuHn4393j6zs2/9Zt/7/b73h3dnZ4eZ+Zh5u7Oz80IVKNJIs50BJfGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIGodIHcYzsDdRFiHB8ynFX0pIRCxpLPyOqj62rEzOV2jDRu4ws/bDwx9BWTE/ITXFcmBFq6PwVc70cyvztP7kd8yXZp/CHlpUOJT+kUDrZdEr8QIH0CK31J5xjHbRfFJ/RCzjWfQhvbefAHAS3dr7ZezrTXmWa7LH4gQrpfHJ7aNiWkC+neJ/iSSgGMtl0SP9CWbkSLNUdDtvMQP0Jaul9tfSn0tV2S+NGWbkQ5vT4ous92LuJFTEv3q60vaMZw2yWJF23phlRwfX3b0Grb2YgLQS3dr7a+GWbbLkl8iJLuF1t+RTvbeYgHYd27P2NzhTx+rkWomPdtF8cj2tI9sRoW286Dd8RJ9+d7HZZPYajtsnhFnHS/uMmp/9DAdi68Iew7Hfx7vn6Q6Z9db73XdnE8ILKlN/bwcSK/Fc/bLosXBLZ0GM0+43Mu0YaiqNANeW0XJ9+EGpHSwcujshGrbm4pyKtt+AL9jt0fuurP5MuEIbJ7h4c8nFNRzsvH02eU1Q7dDB/YLo0pySI9iy51HG3Mdn5f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" /></svg>
+                    </span>
+                </div>
+                <div class="column">
+                    <span id="volume-3" class="volume-value">MUTED</span>
+                    <span class="range">
+                        <input type="range" value="0" max="1.0" min="0.0" step="0.1" id="range-3">
+                    </span>
+                    <span class="figure">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 250 250" enable-background="new 0 0 250 250" xml:space="preserve">  <image  x="0" y="0"    href="data:image/png;base64,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" /></svg>
+                    </span>
+                </div>
+                <div class="column">
+                    <span id="volume-4" class="volume-value">MUTED</span>
+                    <span class="range">
+                        <input type="range" value="0" max="1.0" min="0.0" step="0.1" id="range-4">
+                    </span>
+                    <span class="figure">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 250 250" enable-background="new 0 0 250 250" xml:space="preserve">  <image  x="0" y="0"    href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAQAAAAi5ZK2AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AABF8SURBVHja7Z17dBRVnoC/TiC8IYQAAqNxQQVUwIALeByWhzyigjsDyCvsuDuHnT/27Ho8w+ycdTyO7DhrXF87OzO7s+7Z0XkkAiJxhMHoIiCP2VFGkDcEeRwQBQwICCThkWT/6HS6qqu6u6r7VlVS9/fVH+m6det2/frLreeteyNNCLqRE/QGCP4j0jVEpGuISNcQka4hIl1DRLqGiHQNEekaItI1RKRriEjXEJGuISJdQ0S6hoh0DRHpGiLSNUSka4hI1xCRriEiXUNEuoaIdA0R6Roi0jVEpGuISNcQka4hIl1DRLqGiHQNEekaItI1RKRriEjXEJGuISJdQ0S6hoh0DRHpGiLSNUSka4hI1xCRriEiXUNEuoaIdA0R6Roi0jVEpGuISNcQka4hIl1DRLqGiHQNEekaItI1RKRrSLv4x9lU0yvo7VHAR81/O9kunQBUMZ3lFN4wamDPnN9X31QzlJXc3bKekTshJL/JOKpa5tplUVLbpS8/ZtEZ3o3NP87zNAS9Uf6ho/SnLi/5ijk/jGw9faH7Ld1fKu+9r2xi2cVh7Al6w/xCv2P6kjeWlJ6t6sjTvMsHlJf3m/sb2ECX3XQMetP8Qrea3v+Np4AjM67U0Tma0lD/GN+Cjcx8lOcSsx8Mens9IcTSv26XeP/vgIo/nzGfpbWxtHOlZyoKodPfJUrfGXQIHhHi3ftacq1Tj+iy7k91pzsDqGYwB4g0AXxZ9CXmKayEuKbD59ak9dE/1zZAS03OK+8NUHDUnDWs9Tzk0ncxPDFpx5yZuYuu771SBjA4mjakGoCrrwW9vX4Raum22t/kzeiHHDpSQwM3lEXn/++/jNl6Br3pHhLiY3qUXTZpF8kjNzZz79IHAGYt5kQ8R5iVh76mA+xiKvA5HwLwR6AkvnDCkQ0AM7/HS/HEcCtPlD6IgqA3SAHHOZ0mxwOM4xz1TH9vSl/mLf34CY4mzRvC38Qo/R/3POe6sFbIgoOxM7QodYkZcr9c807zx+EMeCh3dTXVhsUPmnMfWhN0QAqIQEn8UYNR+nMQimdK5+2Tv8kl1gI0DLo1r0fRpUhu3UMry3atKj3D7dTE861hvmm9tv+LnKWJgn+JS084kZv7KpE2P40xRmSu5zOjfw6xjWr28eysx6Gi8P4vYvdkbQg6GgVT6TFzSJYTucm8F/Q/pkIsu3ZmUmmcfYUyqOLhp1kcT7weqvPbEkuKTXTh0V5nmzrTOPPFRDYAJ7+7ZbE513zCQYlNmu2/dDi0Jygfzjj2sBHgCrC/OXkAAFugM7UuCm8jlNimJrk5Mznorc2aBOUzP9z55s/Xvh/bibf47bA69umKeYWlQQeggJIk6UkPXm27th9OmB+0Mvo38gIvAgyJLRiwHYDxbAxdc6mSpEtSnLG0be0m8mLPUvKaL1s+ZTMA32jepfX96Zygt1ExJSmWpTxNDY32q0UcA0r3N/wtQH0sPdL15eiHPT+zW21E0NudMSUpl6a5Nmmb2psYmJAycP2xSQu2VYyZ19DALoYCc6ihW2k5AA8/v/dQ0NuskpI0y9M+ZWuLp3TXrNPTcGHU9G4XjNnu3f9bgPlr+X7QW6ySdModPVpti9otvD/7yTXkf8EM+pFHL4bziw1bPgFmP8PUoDdOJemVO3y02jZ38gn8eMyqxv+pWgU0P17py8TX9z8ZrgavTpQ7fp4eCu27GF3Y786irkXtChrOfnX0wJ+C3iDVOFPuohFFKLTDSU7yQdAb4Q1OlbtqLhWKY3toca7cZXOpkNT2EDAe6ECk5RG5G+WuG0ZKbQ+e8Yxv+TyNabhVnkFrWNEeJEbhMaa5LiWDJtCiPRjshGdGRu3eRbvfpBbe5LI0w4lchw/Gj7221+lGbAz6d9AGJ/U7zXPhP4wvatganzWevd8TdHhCIk536Dk0plpcSqlxNkwtAEOGuyN4Gu0mRHqrJJNTNufaRXqrI/NzdKfaRXqrItuLMmfaRXqrQc1VuBPtIr1VoOq2CzjRLtIDR6XwKOm0i/RAUS88Smrtoe9+pDWTlfLH2JRqcSqxUtMDJKtb2f92lgUfml/LNpO8tov0gLisoIzTo1Mv750kXaQHggrlcCRFVzlR5tmmyjE9ANQoh2PJK3Mzy2xTpab7jirl0Mi8nyWpzCkR6T6jTjnAwbl90krPt6TI7t1X1CqH7Q6ayJ23pGRc06fyv8p/krCjWjlAj3cOR9LlOUMX03xGNb2STsDUcL355zleKIcV0SGlXH13BjXd2CXXVAhVjS920f7EHd4oh0YG/7GmW/p85wyfXdf0SktKeGr8Ps9K9ko5wGtdmeRuDZc1vTJJehhqfNtUDk3Ur+sTqXKxhquaXplyaduu8cmVZxuXt8oBNsESN/ld1PRKB3laQ423G5VjOh8wKMU66Wp55nF5rxxg81P8Im2H5y2kkV7JFNcbEKT4symWFbGKYi6xgwepMD3WXOFZXP4oh9Pcf6pH5IzDt4qT7t6Psz7JELVOCGJXfzal8kTyGN6c303fkO7i8ks5QBUsd5o3ifQap+unwE/x7oTH6cMF1+s4jctP5QCVc5jgLKeN9HYKd85+iM9UuLdx+a0crnJiQ3w8olRYjumb3F70pcXLY7z/up3F5b9ygAOUflHfK/3g0CbpG5nu0eZ4IT5I4anjuk4HH7673iatomDWP/FsujUN0r0egFCl+NYgPFlcN/j0vRfobXPutb6sz/J0DWp8fp6uQnxrEm6Nq5+P3zr57aubt5eZDZ9j2JGvRS6xLsV6ATxPz+bkLoiTNjdx+akcmhp59miXhQk9EmyKjjiYgoAaUWQivjULD4r2UEu72UvMY0YuHcsjqdYKsOWMG/FtRfiwYL72n/sMvNsw28TWX9E3efaA28g5Oca3Dd1B0dxE7uhHnabUrW1JPcX9p7pH9idZpxW0kUtV49tKDY/jf12/Hv1TT+SbhtQqeCXZGq1AOtiLb3vCAydifDz29t+Yx5yN04qaQBt39W1Z9zB2+/yNUYlrATqOrY91cn2RGw/k2jaabCU1PcZUpkoNz4Yrhwb0b5lZg/1ZfCuTHg78P64Xxz9+Xjwrvvs+/quOxKY4Ij18VM5uebK+A/7dmkGke4L/dd30dtO8CS0ftz96negUR6SHhjGMYQyDOMNR6kbEWj0dgn9IzCnSPSKge3Mxdv3lW7GPl3+6iU2mvkpEemj4M/PsN+5o/rDW8uhPpHuG/3W9n2Gq59ZF0dRGJpdNNvXRL9LDyy9jok89sszUJ4VI9xC/63pTwtTl29H0LQmeRXqIsLyn8OooAK4zY/YMQ7JI9xS/63qnhOnW30fTu/yVsVuCVvTARcgey1OLF6INnBtMzZylpntMwNfrG6NXa8c5bkiUmh4qelpSxvE68JkpTWq65/hZ19tbp6MAJzlhyCXSQ0WjdToE0AAF8VzJdu+jqSX5S1Fduci7rsd1bQ0EEld/h/m6ArW846S7qCTYDMp3sLmLAUP1tkrvz2ewGciHS/TnYmxB/Eqv+8kKCt2P6+qIM94UG2hcI13mv4uzfJrRN123Jh1q/lsbT0qUPrdx2evNH89T0XXAV0ywdEs+p6Ir3Kv+twHgreyLsCPAuOoyWmsADZxyvZZNTb/U/Dep9Jydy740JXxGwft3RGJrX6U7HdixHCDvJeW/Dk47AnFNoHFlJh1gBDtdrmFztO4J0D5Zrlnw+ErLOru5YzlzDQkH9gK5rHha9Y/TvA1eEGBc2XXKcJq7OOkiv03j13xIvEFrHFUZJtoVdG0Oc4n1pPijisEAE3nvvNofp2UbvCCwuFT0wzGU/Y7z2lyM9YDEnqAN0iOmRpVxPgZgBMCUt5+MphX+OoNuxh2Qtm/bzAgsri+zLwIYzi6HOW2kFwLcZEoySG+Cc8aruRh9gUFchrkfLoudDWz9odLfpoWx3hQbUFy3KCvJ6dHdRvpgSJRuyNVI40d2BQ08/QnAo+8tu0AvioF7MN3KVUijN1MgcalTDk7v6+VYp2irKdOuwlDTT8DzplMbAPI49iD92PdWfiMFfPvvX/453Lz6ZqUBxfjUdLNQIYHEpfo9HSe13eYirz1AwzZjkvkcf1vpiYqvmdcZRuFHlykHhtJl2KHxXwGf/EBxPC10zL4IOwKIqyD7IiykP7Z/niS9frNxLvEgcOOCP+WZfy9+Rx15LNi6P5c9XcpgOKTvtaq14XNcXigHuCPN8o6W6RgQ4a3lxpte1qv50XcOHfLK9rEHmmfbM5KB76z6a05DP97tBnf+waOI8OxUwfe4PLuZTE9Td/1pGXoZGMq+WmOi3QOX/dwD5Nx9e+GAM5/tbPnvnwHza4CaJzyLiE5Z3L9Ki29xeXTh6YCbExOmbQdGXjHf/U/eiKKRPcbdXYTuUAaDshwiNHA8j8tr5XUpOmq23NyaBnAtoYtAhy1nvs4ZYF8RjHV+eygjjnlbvA9xqehMOTW3cTDJEkvXsFMBzv7GnOhIevN9pZJPgQse7twB8m3GEfMKL+K6qnoj72MakymigAscYTf/wdbkmcsT5gfnwEB435zqQHrLiAjPQD94U3VUQeFFXEqVT2AlBfEeo+hBMcV8axB8764Xd9isYBlZtbAaGGu5zksrfWzL4/yaYpjkeMiIzDnv/Vd4FpeyXfsMViUbpeEwh19Y+KMmmyUzExMWVgI1301MTiPdcMow+gBw2eOdO0Chhxc83sZVm30RAPkcr0oz0lp5Z7vhlC23th6BW7B2E5tSek9jk9oy6Am/VBNXsHgTlyLlDxStKXeQzW6fYtld3QWjP7bmSyK9AyO4ZhrDqN0kePCamrjS4V1N9zIuJdIXr38h8/MCa3OLPPbMt+azlb7XmnTbNqDOh507QF/no025wsu4LmZfBHx/1b9ez76UOLdOvOVktTU5Ej8hmJ9q9RXLZnemNtezoUgT8KaJhpdxKWgjM2nLOnd7iwXrTH0NADsSctxoqP3xZ3SGmr46RfEjZ8MDvOGT8i4pt0UlquKam20BwC6XyuHSbzP7Jmd35PpuASLPPqwgNCe87dP3+B1XSv7T7S3BAfDrzL7KsHtPsUt9efl32nOtW0sbao9RUW8coSyuh7LelO1NbhuQLGy0G5Bru2ku7e49+QB+Jd+ByVT5pNzFUIJZoiqu7JWz0H2boYuLMv0yJ7v3ruuA7v/tV/3zS7m6uBQ8V3M9NtoUeDXTLzNIT3pke2IFEdYtyT4yZ/h2hFUWl4Iz92K3K+SWXLFNv8lBQxTDMT3Z/+usppX8Bft8ahng/S1Y9XEpeM31XHm+m+yll84mvVFrlJ72mJ6EnCqg/xtOX7fNlmXZF+EMZXHl0pR1GZxLeAklJaOhm/PcVszvstmxeCWw36d7cZ69zeZhXENVbM3exF4+k1PM1l4pHqlze9oSDNKTNMIpg1FcP5i2JEVkPma7S5TFpWQw3decnsrdx7r8DMb/NmGQbn/3eGMu3LZeRVxOqFVzD9sB6uJSciW7dMRr6V9lyGHettN3OygtDemO6YvOAyceVxGXE7xqL+5lXGra77Yflr/7fMoc99JpYmLDp8wwSLc9N3gGhpCqVZZasjo/cYPPcTlgz01DRh5ItuuZSudFNcraMhik77Nb3htG7vAr7gP22+AFSuNSdMJTTWTmY51fXJ0TP2QXMoqer+/5AYdVBp9u9x65b9zGo45KUkLf7ItwhtK4FI6l/BN+AhROHNylX93pnYeTvpyWXfAKrjGFNoZ0HqghIl1DRLqGiHQNEekaItI1RKRriEjXEJGuISJdQ0S6hoh0DRHpGiLSNUSka4hI1xCRriEiXUNEuoaIdA0R6Roi0jVEpGuISNcQka4hIl1DRLqGiHQNEekaItI1RKRriEjXEJGuISJdQ0S6hoh0DRHpGiLSNUSka4hI1xCRriEiXUNEuoaIdA0R6Roi0jVEpGuISNcQka4hIl1DRLqGiHQNEekaItI1RKRriEjXEJGuISJdQ/4flTxsNZaXb/kAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDktMjZUMTg6MDk6MjIrMDI6MDA/iAyCAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA5LTI2VDE4OjA5OjIyKzAyOjAwTtW0PgAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAASUVORK5CYII=" /></svg>
+                    </span>
+                </div>
+            </div>
         </div>
-        <div>
-            <ul id="lights">
-                <li><span class="number">1</span><span class="light"></span></li>
-                <li><span class="number">2</span><span class="light"></span></li>
-                <li><span class="number">3</span><span class="light"></span></li>
-                <li><span class="number">4</span><span class="light"></span></li>
-            </ul>
-        </div>
-        <div id="volumes">
-            <div class="column volume-1">
-                <span id="volume-1" class="volume-value">MAX</span>
-                <span class="range">
-                    <input type="range" value="1.0" max="1.0" min="0.0" step="0.1" id="range-1">
-                </span>
-                <span class="figure sprite"></span>
-            </div>
-            <div class="column volume-2">
-                <span id="volume-2" class="volume-value">MUTED</span>
-                <span class="range">
-                    <input type="range" value="0" max="1.0" min="0.0" step="0.1" id="range-2">
-                </span>
-                <span class="figure sprite"></span>
-            </div>
-            <div class="column volume-3">
-                <span id="volume-3" class="volume-value">MUTED</span>
-                <span class="range">
-                    <input type="range" value="0" max="1.0" min="0.0" step="0.1" id="range-3">
-                </span>
-                <span class="figure sprite"></span>
-            </div>
-            <div class="column volume-4">
-                <span id="volume-4" class="volume-value">MUTED</span>
-                <span class="range">
-                    <input type="range" value="0" max="1.0" min="0.0" step="0.1" id="range-4">
-                </span>
-                <span class="figure sprite"></span>
-            </div>
-        </div>
-    </div>
-    <audio id="beat-1" src="./audio/high_wood_block.wav" preload="auto"></audio>
-    <audio id="beat-1-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-1-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-1-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    </main>
+
+    <audio id="1-beat" src="./audio/high_wood_block.wav" preload="auto"></audio>
+    <audio id="1-beat-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="1-beat-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="1-beat-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
     
-    <audio id="beat-2" src="./audio/low_wood_block.wav" preload="auto"></audio>
-    <audio id="beat-2-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-2-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-2-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="2-beat" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="2-beat-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="2-beat-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="2-beat-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
     
-    <audio id="beat-3" src="./audio/low_wood_block.wav" preload="auto"></audio>
-    <audio id="beat-3-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-3-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-3-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="3-beat" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="3-beat-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="3-beat-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="3-beat-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
     
-    <audio id="beat-4" src="./audio/low_wood_block.wav" preload="auto"></audio>
-    <audio id="beat-4-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-4-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-4-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="4-beat" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="4-beat-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="4-beat-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="4-beat-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
     
-    <audio id="beat-5" src="./audio/low_wood_block.wav" preload="auto"></audio>
-    <audio id="beat-5-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-5-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-5-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="5-beat" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="5-beat-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="5-beat-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="5-beat-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
     
-    <audio id="beat-6" src="./audio/low_wood_block.wav" preload="auto"></audio>
-    <audio id="beat-6-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-6-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-6-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="6-beat" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="6-beat-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="6-beat-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="6-beat-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
     
-    <audio id="beat-7" src="./audio/low_wood_block.wav" preload="auto"></audio>
-    <audio id="beat-7-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-7-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-7-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="7-beat" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="7-beat-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="7-beat-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="7-beat-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
     
-    <audio id="beat-8" src="./audio/low_wood_block.wav" preload="auto"></audio>
-    <audio id="beat-8-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-8-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-8-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="8-beat" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="8-beat-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="8-beat-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="8-beat-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
     
-    <audio id="beat-9" src="./audio/low_wood_block.wav" preload="auto"></audio>
-    <audio id="beat-9-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-9-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-9-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="9-beat" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="9-beat-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="9-beat-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="9-beat-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
     
-    <audio id="beat-10" src="./audio/low_wood_block.wav" preload="auto"></audio>
-    <audio id="beat-10-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-10-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-10-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="10-beat" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="10-beat-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="10-beat-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="10-beat-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
     
-    <audio id="beat-11" src="./audio/low_wood_block.wav" preload="auto"></audio>
-    <audio id="beat-11-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-11-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-11-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="11-beat" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="11-beat-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="11-beat-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="11-beat-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
     
-    <audio id="beat-12" src="./audio/low_wood_block.wav" preload="auto"></audio>
-    <audio id="beat-12-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-12-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
-    <audio id="beat-12-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="12-beat" src="./audio/low_wood_block.wav" preload="auto"></audio>
+    <audio id="12-beat-middle" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="12-beat-triplet-2" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
+    <audio id="12-beat-triplet-3" src="./audio/low_wood_block.wav" preload="auto" muted></audio>
     
     <script type="module" src="./js/main.js"></script>
 </body>

@@ -14,11 +14,26 @@ window.onload = function(){
     volume();
 
     // Função do botão play
-    document.getElementById("play").onclick = function(){
-        if(!this.classList.contains("active")){
+    document.getElementById('play').onclick = function(){
+        if(!this.classList.contains('active')){
             play();
         } else {
             pause(window.timer);
+        }
+    }
+
+    /* Menu */
+    const btn = document.getElementById('btn-menu');
+    const menu = document.getElementById('menu');
+    btn.onclick = function(){
+        if(!menu.classList.contains('active')){
+            menu.classList.add('active');
+            btn.classList.add('active');
+            btn.title = 'Close menu'
+        } else {
+            menu.classList.remove('active');
+            btn.classList.remove('active');
+            btn.title = 'Menu'
         }
     }
 }

@@ -2,11 +2,11 @@
     Atualiza o texto do BPM e o range se algum dos dois forem alterados
 */
 export default function update_bpm(){
-    let range = document.getElementById("tempo"),
-        text = document.getElementById("current-bpm");
+    const range = document.getElementById('tempo');
+    const text = document.getElementById('current-bpm');
 
     // Atualiza o texto
-    range.addEventListener("input", () => {
+    range.addEventListener('input', () => {
         text.value = range.value;
     });
 

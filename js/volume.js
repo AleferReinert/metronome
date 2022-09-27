@@ -1,64 +1,36 @@
 export default function volume(){
 
-    // Altera o texto do volume conforme o range muda
-    function text(element, text){
-        if(element.value == 0){
-            text.textContent = "muted";
-        } else if(element.value == 1){
-            text.textContent = "max";
-        } else {
-            text.textContent = element.value;
-        }
-    }
+    // Controlador de volume
+    function volume_control(range, text, audio){
+        range.addEventListener('input', () => {
+            for(let i = 1; i <=12; i++){
+                const e = document.getElementById(`${i}${audio}`);
+                e.muted = false;
+                e.volume = range.value;
+            }
 
-    // Volume 1 (tempos)
-    let range_1  = document.getElementById("range-1"),
-        volume_1 = document.getElementById("volume-1");
+            // Altera o texto do volume conforme o range muda
+            if(range.value == 0){
+                text.textContent = 'muted';
+            } else if(range.value == 1){
+                text.textContent = 'max';
+            } else {
+                text.textContent = range.value;
+            }
+        });
+    };
 
-    range_1.addEventListener("input", () => {
-        for(let i = 1; i <=12; i++){
-            document.getElementById(`beat-${i}`).volume = range_1.value;
-        }
-        text(range_1, volume_1);
-    });
+    const range_1  = document.getElementById('range-1');
+    const volume_1 = document.getElementById('volume-1');
+    const range_2  = document.getElementById('range-2');
+    const volume_2 = document.getElementById('volume-2');
+    const range_3  = document.getElementById('range-3');
+    const volume_3 = document.getElementById('volume-3');
+    const range_4  = document.getElementById('range-4');
+    const volume_4 = document.getElementById('volume-4');
 
-
-    // Volume 2 (contratempos)
-    let range_2  = document.getElementById("range-2"),
-        volume_2 = document.getElementById("volume-2");
-
-    range_2.addEventListener("input", () => {
-        for(let i = 1; i <=12; i++){
-            let e = document.getElementById(`beat-${i}-middle`);
-            e.muted = false;
-            e.volume = range_2.value;
-        }
-        text(range_2, volume_2);
-    });
-
-    // Volume 3 (segunda nota da tercina)
-    let range_3  = document.getElementById("range-3"),
-        volume_3 = document.getElementById("volume-3");
-
-    range_3.addEventListener("input", () => {
-        for(let i = 1; i <=12; i++){
-            let e = document.getElementById(`beat-${i}-triplet-2`);
-            e.muted = false;
-            e.volume = range_3.value;
-        }
-        text(range_3, volume_3);
-    });
-
-    // Volume 4 (terceira nota da tercina)
-    let range_4  = document.getElementById("range-4"),
-        volume_4 = document.getElementById("volume-4");
-
-        range_4.addEventListener("input", () => {
-        for(let i = 1; i <=12; i++){
-            let e = document.getElementById(`beat-${i}-triplet-3`);
-            e.muted = false;
-            e.volume = range_4.value;
-        }
-        text(range_4, volume_4);
-    });
+    volume_control(range_1, volume_1, '-beat');
+    volume_control(range_2, volume_2, '-beat-middle');
+    volume_control(range_3, volume_3, '-beat-triplet-2');
+    volume_control(range_4, volume_4, '-beat-triplet-3');
 };

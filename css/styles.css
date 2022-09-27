@@ -5,6 +5,7 @@ button {
     cursor: pointer;
 }
 
+body,
 input {
     margin: 0;
 }
@@ -32,36 +33,191 @@ select {
 select {
     border: 0;
     background: transparent;
+    color: inherit;
+}
+
+/* Variaveis */
+:root {
+    --black: #313131;
+    --primary: rgb(255, 185, 55);
+    --primary-opacity: rgba(255, 185, 55, .5);
+    --gray: rgba(0,0,0,0.05);
+}
+
+option {
+    color: var(--black)
 }
 
 /* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Music&display=swap');
-@font-face {
-    font-family: 'guitar_pro_5regular';
-    src: url('../fonts/copyfonts.com_guitar-pro-5-webfont.woff') format('woff2'),
-         url('../fonts/copyfonts.com_guitar-pro-5-webfont.woff2') format('woff');
-    font-weight: normal;
-    font-style: normal;
+
+/* SVG colors */
+#btn-menu svg,
+#svg-quarter-note,
+#play svg {
+    fill: var(--black);
+}
+#svg-quarter-note path {
+    stroke: var(--black);
+}
+
+html {
+    height: 100%;
 }
 
 body {
     font-family: 'Roboto', sans-serif;
     background: #f1f1f1;
+    color: var(--black);
+    height: 100%;
+}
+
+/* Header */
+header {
+    position: fixed;
+    background-color: inherit;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    padding: 0 15px;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+    box-sizing: border-box;
+}
+
+header > .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+}
+
+#logo {
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+#btn-menu {
+    background: transparent;
+}
+
+#btn-menu svg {
+    width: 25px;
+    height: 25px;
+}
+
+#svg-close {
+    display: none;
+}
+
+#btn-menu.active #svg-bars {
+    display: none;
+}
+
+#btn-menu.active #svg-close {
+    display: inline;
+}
+
+#menu {
+    position: fixed;
+    top: 50px;
+    left: 100%;
+    width: 100%;
+    bottom: 0;
+    transition: all .2s linear;
+    background: #fff;
+}
+
+#menu.active {
+    left: 0;
+}
+
+#menu h2 {
+    font-size: 14px;
+    padding: 5px 15px;
+    text-transform: uppercase;
+}
+
+#menu li {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-top: 1px solid var(--gray);
+}
+
+#menu label {
+    font-size: 16px;
+    padding-left: 5px;
+}
+
+#menu select {
+    font-size: 16px;
+}
+
+main {
+    padding: 65px 15px 15px;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+main .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
 }
 
 .container {
     margin: 0 auto;
-    width: fit-content;
+    max-width: 500px;
+    width: 100%;
 }
 
-.box {
-    justify-content: center;
-    padding: 15px;
-    background: #fff;
-    border-radius: 10px;
-    margin: 10px 0;
+.main-middle {
+    margin: 50px 0;
 }
+
+/* Range progress bar color*/
+
+/* input[type='range'] {
+    overflow: hidden;
+    -webkit-appearance: none;
+    background-color: rgb(240,240,240);
+    border-radius: 5px;
+}
+  
+input[type='range']::-webkit-slider-runnable-track {
+    height: 10px;
+    -webkit-appearance: none;
+    color: #13bba4;
+}
+  
+input[type='range']::-webkit-slider-thumb {
+    width: 10px;
+    -webkit-appearance: none;
+    height: 10px;
+    cursor: ew-resize;
+    background: #434343;
+    box-shadow: -160px 0 0 160px var(--primary)
+    border-radius: 5px;
+}
+
+input[type="range"]::-moz-range-track {  
+    background-color: rgb(240,240,240);
+}
+input[type="range"]::-ms-fill-upper {  
+    background-color: rgb(240,240,240);
+}
+
+input[type="range"]::-ms-fill-lower {
+    background-color: var(--primary)
+}
+input[type="range"]::-moz-range-progress {
+    background-color: var(--primary)
+} */
+
 
 /* Top */
 .top {
@@ -71,9 +227,8 @@ body {
     align-items: center;
 }
 
-#quarter-note {
-    font-family: 'guitar_pro_5regular';
-    font-size: 22px;
+#svg-quarter-note {
+    height: 26px;
 }
 
 #equal {
@@ -91,6 +246,8 @@ body {
     font-weight: 500;
     font-size: 36px;
     padding: 0;
+    background: transparent;
+    color: inherit;
 }
 
 #current-bpm + span{
@@ -103,19 +260,18 @@ body {
     border-radius: 100%;
     width: 60px;
     height: 60px;
+    background-color: var(--gray);
 }
 
 #play svg {
     width: 40px;
     height: 40px;
-}
-
-#svg-play {
-    margin-right: -4px;
+    margin-right: -5px;
 }
 
 #svg-pause {
     display: none;
+    margin-left: -5px;
 }
 
 #play.active #svg-play {
@@ -138,14 +294,6 @@ body {
     display: flex;
 }
 
-.column {
-    padding: 0 15px;
-}
-
-.column + .column {
-    border-left: 1px solid rgba(0,0,0,0.15);
-}
-
 label {
     font-size: 14px;
     font-weight: 400;
@@ -162,13 +310,13 @@ label {
 [for="beats"] {
     font-weight: 500;
     font-size: 16px;
+    display: inline-flex;
 }
 
 #time-signature {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     position: relative;
-    align-items: center;
 }
 
 #time-signature::after {
@@ -176,91 +324,78 @@ label {
     height: 1px;
     content: '';
     position: absolute;
-    top: 26px;
+    top: 30px;
     left: 50%;
-    margin-left: -20px;
+    margin-left: -14px;
     display: block;
-    background: #000;
+    background: var(--black);
 }
 
-#beats, #note-value {
-    font-family: 'guitar_pro_5regular';
-    transform: scale(1.5);
-    width: 40px;
-    height: 26px;
+#time-signature select {
+    height: 30px;
     font-size: 20px;
-    text-align: center;
-}
-
-.sound-options label {
     font-weight: 500;
+    text-align: center;
+    color: inherit;
 }
 
-.sound-options .row {
-    display: grid;
-    grid-template-columns: auto 124px;
-    column-gap: 10px;
-}
-
-.sound-options .row + .row {
-    margin-top: 2px;
+/* Contador */
+#count {
+    font-size: 40px;
+    color: var(--primary);
+    text-align: center;
+    font-weight: 500;
+    margin: -10px 0 40px;
 }
 
 /* Luzes */
 #lights {
     display: flex;
-    justify-content: space-between;
-    column-gap: 5px;
-    width: fit-content;
-    margin: 0 auto;
+    justify-content: center;
 }
 
-#lights .number {
-    font-size: 14px;
-    font-weight: 500;
+#lights li {
+    width: 13px;
+    height: 13px;
+    border-radius: 100%;
+    border: 1px solid var(--primary);
+    background-color: var(--primary);
+    transform: scale(0.6);
+    transition: all 0.15s linear;
+    color: transparent;
     text-align: center;
-    display: block;
-    margin: 10px 0 2px;
+    font-weight: 700;
+    font-size: 5px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 0 7px;
 }
 
-#lights li .light {
-    width: 20px;
-    height: 20px;
-    background: #bbb;
-    display: block;
-}
-
-#lights li.active .light{
-    background: #00499c;
-}
-
-#lights li.active ~ li.active .light {
-    background: #bbb;
-}
-
-#lights li.accent .light {
-    background: #0075FF;
+#lights li.active {
+    background: transparent;
+    box-shadow: 0 0 2px 2px var(--primary-opacity);
+    transform: scale(2);
 }
 
 /* Volumes */
 #volumes {
     display: flex;
-    column-gap: 5px;
-    justify-content: center;
-    margin: 20px 0;
+    column-gap: 10px;
+    justify-content: space-between;
 }
 
 #volumes .column {
-    display: grid;
-    grid-template-rows: auto 80px auto;
-    text-align: center;
-    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     border-radius: 15px;
     padding: 10px 10px 0px;
     overflow: hidden;
     box-sizing: border-box;
-    width: 70px;
-    background: rgba(255,255,255,0.25);
+    width: 100%;
+    background: rgba(0,0,0,0.025);
 }
 
 #volumes .volume-value {
@@ -272,45 +407,63 @@ label {
 
 #volumes .range {
     width: 50px;
+    height: 95px;
 }
 
 #volumes [type="range"] {
-    transform: rotate(-90deg) translate(-30px, -15px);
-    width: 80px;
+    transform: rotate(-90deg) translate(-40px, -25px);
+    width: 100px;
 }
 
-#volumes .figure {
-    font-family: 'Noto Music', sans-serif;
-    font-size: 30px;
-    position: relative;
-    height: 60px;
-    top: 3px;
-}
-
-.sprite {
-    background: url("../img/sprite.png") no-repeat;
-    display: block;
+#volumes .figure svg {
     width: 50px;
     height: 50px;
-    background-position: 0 0;
 }
 
-.volume-2 .sprite {background-position: 0 -50px;}
-.volume-3 .sprite {background-position: 0 -100px;}
-.volume-4 .sprite {background-position: 0 -150px;}
+/* Theme Dark */
+.dark {
+    color: var(--primary);
+}
 
-@media (min-width: 576px) {
+.dark #menu,
+.dark {
+    background: var(--black);
+}
 
-    #lights {
-        column-gap: 10px;
-    }
+.dark header {
+    border: 0;
+}
 
-    #lights .number {
-        font-size: 20px;
-    }
+.dark #svg-quarter-note path {
+    stroke: var(--primary);
+}
 
-    #lights li .light {
-        width: 50px;
-        height: 50px;
-    }
+.dark #time-signature::after,
+.dark #play {
+    background-color: var(--primary);
+}
+
+.dark #svg-play {
+    fill: var(--black)
+}
+.dark #svg-quarter-note,
+.dark #btn-menu svg {
+    fill:var(--primary);
+}
+
+.dark #menu li {
+    border-color: var(--primary-opacity);
+}
+
+.dark .figure svg image {
+    filter: contrast(0) brightness(72%) invert(1) sepia(100%) saturate(670%);
+}
+
+.dark #current-bpm + span {
+    opacity: 1;
+}
+
+.dark .box,
+.dark #volumes .column {
+    background: transparent;
 }

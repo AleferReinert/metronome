@@ -1,37 +1,39 @@
 import pause from './pause.js';
 import play from './play.js';
-import load_lights from './load_lights.js';
+import lights from './lights.js';
 
 /* 
     Reinicia o metrônomo sempre que alguma opção for alterada
 */
 export default function update(){
-    let btn             = document.getElementById("play"),
-        e_tempo         = document.getElementById("tempo"),
-        e_beats         = document.getElementById("beats"),
-        e_note_value    = document.getElementById("note-value"),
-        e_accent_sound  = document.getElementById("accent-sound"),
-        e_click_sound   = document.getElementById("click-sound"),
-        e_odd_beats     = document.getElementById("odd-beats"),
-        tempo           = e_tempo.value,
-        beats           = e_beats.value,
-        note_value      = e_note_value.value;
+    const btn             = document.getElementById('play');
+    const e_tempo         = document.getElementById('tempo');
+    const e_beats         = document.getElementById('beats');
+    const e_note_value    = document.getElementById('note-value');
+    const e_accent_sound  = document.getElementById('accent-sound');
+    const e_click_sound   = document.getElementById('click-sound');
+    const e_odd_beats     = document.getElementById('odd-beats');
+    const theme           = document.getElementById('theme');
+    const current_bpm     = document.getElementById('current-bpm');
+    let tempo           = e_tempo.value;
+    let beats           = e_beats.value;
+    let note_value      = e_note_value.value;
 
     // Percorre cada elemento pra ver se tem mudança e fazer as atualizações necessárias
-    const elements = [e_tempo, e_beats, e_note_value, e_accent_sound, e_click_sound, e_odd_beats];
+    const elements = [e_tempo, e_beats, e_note_value, e_accent_sound, e_click_sound, e_odd_beats, theme];
     for(let i = 0; i < elements.length; i++){
         elements[i].onchange = function(){
 
             // Andamento
             if(elements[i] == e_tempo){
                 tempo = this.value;
-                document.getElementById('current-bpm').innerText = window.tempo;
+                current_bpm.innerText = window.tempo;
             } 
 
             // Numerador
             else if(elements[i] == e_beats){
                 beats = this.value;
-                load_lights(beats);
+                lights(beats);
             } 
 
             // Denominador
@@ -41,19 +43,23 @@ export default function update(){
 
             // Áudio de acentuação
             else if(elements[i] == e_accent_sound){
-                document.getElementById("beat-1").src = e_accent_sound.value;
+                document.getElementById('1-beat').src = e_accent_sound.value;
             }
 
             // Áudio de click normal
             else if(elements[i] == e_click_sound){
                 for(let i = 2; i <= 12; i++){
-                    document.getElementById(`beat-${i}`).src = e_click_sound.value;
+                    document.getElementById(`${i}-beat`).src = e_click_sound.value;
                 }
             }
 
-            // Tocar apenas tempos impares
-            else if(elements[i] == e_odd_beats){
-                
+            // Theme
+            else if(elements[i] == theme){
+                if (theme.value == 'dark') {
+                    document.querySelector('body').classList.add('dark')
+                } else {
+                    document.querySelector('body').classList.remove('dark')
+                }
             }
 
             // Definindo limites pra não bugar o áudio nos denominadores 16(0.25) e 8 (0.5)
@@ -62,7 +68,7 @@ export default function update(){
                 
                 if(tempo > 100){
                     tempo = 100;
-                    document.getElementById("current-bpm").value = 100;
+                    current_bpm.value = 100;
                 }
                 
             } else if(note_value == 0.5){
@@ -70,11 +76,11 @@ export default function update(){
 
                 if(tempo > 200){
                     tempo = 200;
-                    document.getElementById("current-bpm").value = 200;
+                    current_bpm.value = 200;
                 }
             } else {
                 e_tempo.max = 280;
-                document.getElementById("current-bpm").value = tempo;
+                current_bpm.value = tempo;
             }
             
             if(btn.classList.contains("active")){

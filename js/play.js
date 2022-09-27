@@ -1,52 +1,50 @@
-import pause from "./pause.js";
 /* 
     Inicia o metronomo
 */
+
+import pause from "./pause.js";
+
 export default function play(tempo, beats, note_value){
     
     // Se não for passado os parâmetros
-    tempo       == undefined ? tempo = document.getElementById("tempo").value : tempo;
-    beats       == undefined ? beats = document.getElementById("beats").value : beats;
-    note_value  == undefined ? note_value = document.getElementById("note-value").value : note_value;
+    tempo       == undefined ? tempo = document.getElementById('tempo').value : tempo;
+    beats       == undefined ? beats = document.getElementById('beats').value : beats;
+    note_value  == undefined ? note_value = document.getElementById('note-value').value : note_value;
 
-    let btn                 = document.getElementById("play"),
-        interval_beat       = Math.round((60000/tempo) * note_value);
+    const btn = document.getElementById('play');
+    let interval_beat = Math.round((60000/tempo) * note_value);
 
     function play_beat(index){
+        
+        // Contador
+        document.getElementById('count').innerText = index;
 
-        // Tempo principal
-        let beat = document.getElementById(`beat-${index}`);
-        beat.play();
+        // Semínimas
+        document.getElementById(`${index}-beat`).play();
 
-        // Contratempo
-        let middle_beat = document.getElementById(`beat-${index}-middle`);
+        // Contratempos
         setTimeout(function(){
-            middle_beat.play();
+            document.getElementById(`${index}-beat-middle`).play();
         }, interval_beat / 2);
 
         // Segunda nota da tercina
-        let triplet_2 = document.getElementById(`beat-${index}-triplet-2`);
         setTimeout(function(){
-            triplet_2.play();
+            document.getElementById(`${index}-beat-triplet-2`).play();
         }, interval_beat / 3);
 
         // Terceira nota da tercina
-        let triplet_3 = document.getElementById(`beat-${index}-triplet-3`);
         setTimeout(function(){
-            triplet_3.play();
+            document.getElementById(`${index}-beat-triplet-3`).play();
         }, (interval_beat / 3) * 2);
 
         // Classe CSS de ativo
-        let e = document.querySelector(`#lights li:nth-child(${index})`);
-        e.classList.add("active");
+        const e = document.querySelector(`#lights li:nth-child(${index})`);
+        e.classList.add('active');
         if(beats > 1){
             setTimeout(function(){
-                e.classList.remove("active");
+                e.classList.remove('active');
             }, interval_beat);
             
-        }
-        if(beats == 1 && !btn.classList.contains('active')){
-            e.classList.remove("active");
         }
     }
     
@@ -58,9 +56,8 @@ export default function play(tempo, beats, note_value){
             play_beat(counter);
         } 
         
-        // Toca os tempos pares apenas se a opção "play only odd beats" estiver desativada
-        let odd_beats = document.getElementById("odd-beats");
-        if(counter % 2 == 0 && !odd_beats.checked) {
+        // Reproduz os tempos pares apenas se a opção "play only odd beats" estiver desativada
+        if(counter % 2 == 0 && !document.getElementById('odd-beats').checked) {
             play_beat(counter);
         }
 
@@ -72,7 +69,7 @@ export default function play(tempo, beats, note_value){
         }
     }
 
-    if(btn.classList.contains("active")){
+    if(btn.classList.contains('active')){
         pause(window.timer);
     } else {
         
@@ -81,7 +78,7 @@ export default function play(tempo, beats, note_value){
         window.timer = setInterval(metronome, interval_beat);
 
         // Atualiza o botão
-        btn.classList.add("active");
-        btn.title = "Pausar";
+        btn.classList.add('active');
+        btn.title = 'Pausar';
     }
 };
