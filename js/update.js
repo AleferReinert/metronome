@@ -6,77 +6,78 @@ import lights from './lights.js';
     Reinicia o metrônomo sempre que alguma opção for alterada
 */
 export default function update(){
-    const btn             = document.getElementById('play');
-    const e_tempo         = document.getElementById('tempo');
-    const e_beats         = document.getElementById('beats');
-    const e_note_value    = document.getElementById('note-value');
-    const e_accent_sound  = document.getElementById('accent-sound');
-    const e_click_sound   = document.getElementById('click-sound');
-    const e_odd_beats     = document.getElementById('odd-beats');
-    const current_bpm     = document.getElementById('current-bpm');
-    let tempo           = e_tempo.value;
-    let beats           = e_beats.value;
-    let note_value      = e_note_value.value;
+    const btn_play = document.getElementById('play');
+    const bpm = document.getElementById('bpm');
+    const e_beats = document.getElementById('beats');
+    const e_note_value = document.getElementById('note-value');
+    const e_accent_sound = document.getElementById('accent-sound');
+    const e_click_sound = document.getElementById('click-sound');
+    const e_odd_beats = document.getElementById('odd-beats');
+    const bpm_text = document.getElementById('bpm-text');
 
-    // Percorre cada elemento pra ver se tem mudança e fazer as atualizações necessárias
-    const elements = [e_tempo, e_beats, e_note_value, e_accent_sound, e_click_sound, e_odd_beats];
+    bpm.addEventListener('input', () => {
+        bpm_text.value = bpm.value;
+    });
+
+    // Percorre cada elemento para ver se há mudanças
+    const elements = [bpm, e_beats, e_note_value, e_accent_sound, e_click_sound, e_odd_beats, bpm_text];
     for(let i = 0; i < elements.length; i++){
-        elements[i].onchange = function() {
-
-            // Andamento
-            if(elements[i] == e_tempo){
-                tempo = this.value;
-                current_bpm.innerText = window.tempo;
-            } 
+        elements[i].addEventListener('change', () => {
+            const e = elements[i];
 
             // Numerador
-            else if(elements[i] == e_beats){
-                beats = this.value;
-                lights(beats);
-            } 
-
-            // Denominador
-            else if(elements[i] == e_note_value){
-                note_value = this.value;
+            if(e_beats == e){
+                lights(e_beats.value);
             }
 
             // Áudio de acentuação
-            else if(elements[i] == e_accent_sound){
+            else if(e_accent_sound == e){
                 document.getElementById('1-beat').src = e_accent_sound.value;
             }
 
             // Áudio de click normal
-            else if(elements[i] == e_click_sound){
+            else if(e_click_sound == e){
                 for(let i = 2; i <= 12; i++){
                     document.getElementById(`${i}-beat`).src = e_click_sound.value;
                 }
             }
+            
+            // Texto do BPM
+            else if(bpm_text == e){
+                if(bpm_text.value < 30) {
+                    bpm.value = 30;
+                } else if(bpm_text.value > 280){
+                    bpm.value = 280;
+                } else {
+                    bpm.value = bpm_text.value;
+                }
+            }
 
             // Definindo limites pra não bugar o áudio nos denominadores 16(0.25) e 8 (0.5)
-            if(note_value == 0.25) {
-                e_tempo.max = 100;
+            if(e_note_value.value == 0.25) {
+                bpm.max = 100;
                 
-                if(tempo > 100){
-                    tempo = 100;
-                    current_bpm.value = 100;
+                if(bpm.value > 100){
+                    bpm.value = 100;
+                    bpm_text.value = 100;
                 }
                 
-            } else if(note_value == 0.5){
-                e_tempo.max = 200;
+            } else if(e_note_value.value == 0.5){
+                bpm.max = 200;
 
-                if(tempo > 200){
-                    tempo = 200;
-                    current_bpm.value = 200;
+                if(bpm.value > 200){
+                    bpm.value = 200;
+                    bpm_text.value = 200;
                 }
             } else {
-                e_tempo.max = 280;
-                current_bpm.value = tempo;
+                bpm.max = 280;
+                bpm_text.value = bpm.value;
             }
             
-            if(btn.classList.contains('active')){
+            if(btn_play.classList.contains('active')){
                 pause(window.timer);
-                play(tempo, beats, note_value);
+                play(bpm.value, e_beats.value, e_note_value.value);
             }
-        };
+        });
     }
 };

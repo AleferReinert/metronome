@@ -81,7 +81,7 @@
                     <label>
                         <svg id="svg-quarter-note" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" viewbox="0 0 14 41"> <g transform="translate(-440.95 -9.4689)">  <path d="m451.09 49.39c3.3958-1.82 5.2053-5.1146 4.0922-7.593-1.1873-2.6436-5.267-3.3897-9.1066-1.6654-3.8396 1.7244-5.9922 5.2694-4.8049 7.913 1.1873 2.6436 5.267 3.3897 9.1066 1.6654 0.23997-0.10777 0.48628-0.19874 0.71268-0.32007z" fill-rule="evenodd"/><path d="m454.73 43.056v-33.588" stroke="#000" stroke-width="1.5"/> </g></svg>
                         <span id="equal">=</span>
-                        <input type="text" id="current-bpm" value="120">
+                        <input type="text" id="bpm-text" value="120">
                         <span>BPM</span>
                     </label>
                     <button id="play" title="Tocar">
@@ -90,11 +90,11 @@
                     </button>
                 </div>
                 <div>
-                    <input id="tempo" type="range" min="30" max="280" value="120">
+                    <input id="bpm" type="range" min="30" max="280" value="120">
                 </div>
             </div>
             <div class="main-middle">
-                <div id="count">--</div>
+                <div id="counter">--</div>
                 <ul id="lights">
                     <li></li>
                     <li></li>

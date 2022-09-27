@@ -7,13 +7,7 @@
 
 button {
     border: 0;
-    padding: 0;
     cursor: pointer;
-}
-
-body,
-input {
-    margin: 0;
 }
 
 input:focus,
@@ -21,13 +15,12 @@ select:focus {
     outline: 0;
 }
 
-ul {
-    margin: 0;
-    padding: 0;
-}
-
 li {
     list-style: none;
+}
+
+[type="checkbox"] {
+    background-color: transparent;
 }
 
 [type="checkbox"],
@@ -70,7 +63,7 @@ option {
 
 /* Geral */
 html {
-    height: 100%;
+    min-height: 100%;
 }
 
 body {
@@ -246,7 +239,7 @@ input[type="range"]::-moz-range-progress {
     left: 4px;
 }
 
-#current-bpm {
+#bpm-text {
     width: 65px;
     text-align: right;
     display: inline-block;
@@ -258,7 +251,7 @@ input[type="range"]::-moz-range-progress {
     color: inherit;
 }
 
-#current-bpm + span{
+#bpm-text + span{
     font-weight: 400;
     opacity: 0.5;
     font-size: 14px;
@@ -291,7 +284,7 @@ input[type="range"]::-moz-range-progress {
 }
 
 /* Range */
-#tempo {
+#bpm {
     width: 100%;
     margin-top: 20px;
 }
@@ -348,7 +341,7 @@ label {
 }
 
 /* Contador */
-#count {
+#counter {
     font-size: 40px;
     color: var(--primary);
     text-align: center;
@@ -466,7 +459,7 @@ label {
     filter: contrast(0) brightness(72%) invert(1) sepia(100%) saturate(670%);
 }
 
-.dark #current-bpm + span {
+.dark #bpm-text + span {
     opacity: 1;
 }
 

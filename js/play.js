@@ -1,23 +1,17 @@
-/* 
-    Inicia o metronomo
-*/
-
 import pause from "./pause.js";
 
-export default function play(tempo, beats, note_value){
+export default function play(bpm, beats, note_value){
     
-    // Se não for passado os parâmetros
-    tempo       == undefined ? tempo = document.getElementById('tempo').value : tempo;
+    bpm         == undefined ? bpm = document.getElementById('bpm').value : bpm;
     beats       == undefined ? beats = document.getElementById('beats').value : beats;
     note_value  == undefined ? note_value = document.getElementById('note-value').value : note_value;
 
-    const btn = document.getElementById('play');
-    let interval_beat = Math.round((60000/tempo) * note_value);
+    const btn_play = document.getElementById('play');
+    const odd_beats = document.getElementById('odd-beats')
+    let interval_beat = Math.round((60000/bpm) * note_value);
 
     function play_beat(index){
-        
-        // Contador
-        document.getElementById('count').innerText = index;
+        document.getElementById('counter').innerText = index;
 
         // Semínimas
         document.getElementById(`${index}-beat`).play();
@@ -37,7 +31,7 @@ export default function play(tempo, beats, note_value){
             document.getElementById(`${index}-beat-triplet-3`).play();
         }, (interval_beat / 3) * 2);
 
-        // Classe CSS de ativo
+        // Classe active do CSS
         const e = document.querySelector(`#lights li:nth-child(${index})`);
         e.classList.add('active');
         if(beats > 1){
@@ -51,17 +45,16 @@ export default function play(tempo, beats, note_value){
     let counter = 1;
     function metronome(){
 
-        // Reproduz os tempos impares
+        // Reproduz se for impar
         if(counter % 2 != 0){
             play_beat(counter);
         } 
         
-        // Reproduz os tempos pares apenas se a opção "play only odd beats" estiver desativada
-        if(counter % 2 == 0 && !document.getElementById('odd-beats').checked) {
+        // Reproduz se for par e se "play only odd beats" estiver desativada
+        if(counter % 2 == 0 && !odd_beats.checked) {
             play_beat(counter);
         }
 
-        // Conta os tempos de cada compasso
         if(counter >= beats){
             counter = 1;
         } else {
@@ -69,16 +62,12 @@ export default function play(tempo, beats, note_value){
         }
     }
 
-    if(btn.classList.contains('active')){
+    if(btn_play.classList.contains('active')){
         pause(window.timer);
     } else {
-        
-        // Reproduz
         metronome();
         window.timer = setInterval(metronome, interval_beat);
-
-        // Atualiza o botão
-        btn.classList.add('active');
-        btn.title = 'Pausar';
+        btn_play.classList.add('active');
+        btn_play.title = 'Pausar';
     }
 };

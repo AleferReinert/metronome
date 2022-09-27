@@ -1,10 +1,10 @@
 export default function pause(timer){
-    const btn = document.getElementById("play");
-    const count = document.getElementById("count");
+    const btn_play = document.getElementById("play");
+    const counter = document.getElementById("counter");
 
-    btn.classList.remove("active");
-    btn.title = "Tocar";
-    count.textContent = '--';
+    btn_play.classList.remove("active");
+    btn_play.title = "Tocar";
+    counter.textContent = '--';
 
     clearInterval(timer);
 };

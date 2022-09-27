@@ -1,49 +1,43 @@
-import update_bpm from './update_bpm.js';
 import update from './update.js';
 import play from './play.js';
 import pause from './pause.js';
 import volume from './volume.js';
 
-// Variáveis globais que vão receber setInterval e set Timeout, respectivamente
-//var timer_measure;
-var timer;
+window.addEventListener('DOMContentLoaded', () => {
+    const btn_play = document.getElementById('play');
+    const btn_menu = document.getElementById('btn-menu');
+    const menu = document.getElementById('menu');
+    const theme = document.getElementById('theme');
+    const body = document.querySelector('body');
 
-window.onload = function(){
     update();
-    update_bpm();
     volume();
 
-    // Função do botão play
-    document.getElementById('play').onclick = function(){
-        if(!this.classList.contains('active')){
-            play();
-        } else {
+    btn_play.addEventListener('click', () => {
+        if(btn_play.classList.contains('active')){
             pause(window.timer);
-        }
-    }
-
-    /* Menu */
-    const btn = document.getElementById('btn-menu');
-    const menu = document.getElementById('menu');
-    btn.onclick = function(){
-        if(!menu.classList.contains('active')){
-            menu.classList.add('active');
-            btn.classList.add('active');
-            btn.title = 'Close menu'
         } else {
-            menu.classList.remove('active');
-            btn.classList.remove('active');
-            btn.title = 'Menu'
-        }
-    };
-
-    /* Tema visual */
-    const theme = document.getElementById('theme');
-    theme.addEventListener('change', () => {
-        if (theme.value == 'dark') {
-            document.querySelector('body').classList.add('dark')
-        } else {
-            document.querySelector('body').classList.remove('dark')
+            play();
         }
     });
-}
+
+    btn_menu.addEventListener('click', () => {
+        if(menu.classList.contains('active')){
+            menu.classList.remove('active');
+            btn_menu.classList.remove('active');
+            btn_menu.title = 'Menu';
+        } else {
+            menu.classList.add('active');
+            btn_menu.classList.add('active');
+            btn_menu.title = 'Close menu';
+        }
+    });
+
+    theme.addEventListener('change', () => {
+        if (theme.value == 'dark') {
+            body.classList.add('dark')
+        } else {
+            body.classList.remove('dark')
+        }
+    });
+});

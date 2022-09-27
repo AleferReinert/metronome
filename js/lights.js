@@ -1,26 +1,22 @@
 /* 
-    Carrega as bolinhas que ficarão piscando enquanto o metrônomo é reproduzido
+    Ao alterar o numerador do compasso, 
+    as luzes são recarregadas com a quantidade selecionada
 */
 export default function lights(max){
-    const el = document.getElementById('lights');
+    const e = document.getElementById('lights');
 
-    // Atualiza o column grid do css
-    el.style.gridTemplateColumns = `repeat(${max}, 1fr)`;
-
-    // Trata os tamanhos das luzes ativas
-    if(max >= 5 && max < 9){
-        el.classList.value = 'sm'
-    } else if(max >= 9){
-        el.classList.value = 'xs'
-    } else {
-        el.classList.value = ''
+    e.style.gridTemplateColumns = `repeat(${max}, 1fr)`;
+    e.innerHTML = '';
+    
+    for(let i = 1; i <= max; i++){
+        e.insertAdjacentHTML('beforeend', `<li></li>`);
     }
 
-    // Limpa o conteúdo anterior
-    el.innerHTML = '';
-
-    // Carrega o novo conteúdo
-    for(let i = 1; i <= max; i++){
-        el.insertAdjacentHTML('beforeend', `<li></li>`);
+    if(max >= 5 && max < 9){
+        e.classList.value = 'sm'
+    } else if(max >= 9){
+        e.classList.value = 'xs'
+    } else {
+        e.classList.value = ''
     }
 };
