@@ -13,16 +13,15 @@ export default function update(){
     const e_accent_sound  = document.getElementById('accent-sound');
     const e_click_sound   = document.getElementById('click-sound');
     const e_odd_beats     = document.getElementById('odd-beats');
-    const theme           = document.getElementById('theme');
     const current_bpm     = document.getElementById('current-bpm');
     let tempo           = e_tempo.value;
     let beats           = e_beats.value;
     let note_value      = e_note_value.value;
 
     // Percorre cada elemento pra ver se tem mudança e fazer as atualizações necessárias
-    const elements = [e_tempo, e_beats, e_note_value, e_accent_sound, e_click_sound, e_odd_beats, theme];
+    const elements = [e_tempo, e_beats, e_note_value, e_accent_sound, e_click_sound, e_odd_beats];
     for(let i = 0; i < elements.length; i++){
-        elements[i].onchange = function(){
+        elements[i].onchange = function() {
 
             // Andamento
             if(elements[i] == e_tempo){
@@ -53,15 +52,6 @@ export default function update(){
                 }
             }
 
-            // Theme
-            else if(elements[i] == theme){
-                if (theme.value == 'dark') {
-                    document.querySelector('body').classList.add('dark')
-                } else {
-                    document.querySelector('body').classList.remove('dark')
-                }
-            }
-
             // Definindo limites pra não bugar o áudio nos denominadores 16(0.25) e 8 (0.5)
             if(note_value == 0.25) {
                 e_tempo.max = 100;
@@ -83,7 +73,7 @@ export default function update(){
                 current_bpm.value = tempo;
             }
             
-            if(btn.classList.contains("active")){
+            if(btn.classList.contains('active')){
                 pause(window.timer);
                 play(tempo, beats, note_value);
             }

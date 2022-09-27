@@ -35,5 +35,15 @@ window.onload = function(){
             btn.classList.remove('active');
             btn.title = 'Menu'
         }
-    }
+    };
+
+    /* Tema visual */
+    const theme = document.getElementById('theme');
+    theme.addEventListener('change', () => {
+        if (theme.value == 'dark') {
+            document.querySelector('body').classList.add('dark')
+        } else {
+            document.querySelector('body').classList.remove('dark')
+        }
+    });
 }
