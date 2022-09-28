@@ -34,10 +34,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     theme.addEventListener('change', () => {
-        if (theme.value == 'dark') {
-            body.classList.add('dark')
-        } else {
-            body.classList.remove('dark')
-        }
+        body.dataset.theme = theme.value;
     });
 });
