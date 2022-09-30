@@ -1,5 +1,5 @@
-import pause from './pause.js';
-import start from './metronome.js';
+import stop from './stop.js';
+import start from './start.js';
 import lights from './lights.js';
 
 /* 
@@ -11,8 +11,8 @@ export default function update(){
     const bpm = document.getElementById('bpm');
     const beats = document.getElementById('beats');
     const noteValue = document.getElementById('note-value');
-    const accentSound = document.getElementById('accent-sound');
-    const clickSound = document.getElementById('click-sound');
+    const firstBeatSound = document.getElementById('first-beat-sound');
+    const beatSound = document.getElementById('beat-sound');
     const bpmText = document.getElementById('bpm-text');
     const advancedMode = document.getElementById('advanced-mode');
     const measuresToPlay = document.getElementById('measures-to-play');
@@ -31,8 +31,8 @@ export default function update(){
         bpm, 
         beats, 
         noteValue, 
-        accentSound, 
-        clickSound, 
+        firstBeatSound, 
+        beatSound, 
         bpmText, 
         advancedMode, 
         measuresToPlay, 
@@ -47,15 +47,15 @@ export default function update(){
                 lights(beats.value);
             }
 
-            // Áudio de acentuação
-            else if(accentSound == e){
-                document.getElementById('1-beat').src = accentSound.value;
+            // Áudio do primeiro beat
+            else if(firstBeatSound == e){
+                document.getElementById('1-beat').src = firstBeatSound.value;
             }
 
-            // Áudio de click normal
-            else if(clickSound == e){
+            // Áudio do beat normal
+            else if(beatSound == e){
                 for(let i = 2; i <= 12; i++){
-                    document.getElementById(`${i}-beat`).src = clickSound.value;
+                    document.getElementById(`${i}-beat`).src = beatSound.value;
                 }
             }
             
@@ -116,7 +116,7 @@ export default function update(){
             }
             
             if(btnPlay.classList.contains('active')){
-                pause(window.timer);
+                stop(window.timer);
                 start(bpm.value, beats.value, noteValue.value);
             }
         });

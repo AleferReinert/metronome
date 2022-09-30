@@ -1,7 +1,7 @@
 import update from './update.js';
-import start from './metronome.js';
+import start from './start.js';
 import volume from './volume.js';
-import pause from './pause.js';
+import stop from './stop.js';
 
 window.addEventListener('DOMContentLoaded', () => {
     const btnPlay = document.getElementById('play');
@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if(!btnPlay.classList.contains('active')){
             start();
         } else {
-            pause();
+            stop();
         }
     });
 

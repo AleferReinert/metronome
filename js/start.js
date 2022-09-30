@@ -1,7 +1,6 @@
-import pause from "./pause.js";
+import stop from "./stop.js";
 
 export default function start(bpm, beats, noteValue){
-    
     bpm         == undefined ? bpm = document.getElementById('bpm').value : bpm;
     beats       == undefined ? beats = document.getElementById('beats').value : beats;
     noteValue   == undefined ? noteValue = document.getElementById('note-value').value : noteValue;
@@ -17,14 +16,18 @@ export default function start(bpm, beats, noteValue){
     const measuresToPlay = document.getElementById('measures-to-play');
     const minutesToPlay = document.getElementById('minutes-to-play');
     const counterTimer = document.querySelector('#counters .timer');
+    const startTime = Date.now();
     let interval = Math.round((60000/bpm) * noteValue);
     let beatsPerMeasure = 1;
     let totalBeats = 0;
     let totalMeasures = 0;
+    let mm = 0;
+    let ss = 0;
+    let totalTime = 0;
+    let diff;
+    let allDiffs = [];
 
     /* Timer */
-    let mm = 0,
-        ss = 0;
     function timer() {
         ss++;
         if (ss == 60) {
@@ -64,21 +67,44 @@ export default function start(bpm, beats, noteValue){
 
         // Quantidade de compassos para reproduzir (também toca o primeiro click para finalizar)
         if(measuresToPlay.value > 0 && totalBeats == (measuresToPlay.value * beats)+1){
-            pause(interval);
+            stop(interval);
         }
 
         // Quantidade de minutos para reproduzir (também toca o primeiro click para finalizar)
         if(minutesToPlay.value > 0 && mm == minutesToPlay.value){
             if(beatsPerMeasure == 2){
-                pause(interval);
+                stop(interval);
             }
         }
     }
 
     btnPlay.classList.add('active');
-    btnPlay.title = 'Pausar';
+    btnPlay.title = 'Stop';
     counterTimer.innerText = '00:00';
+    
+    /* Ajusta o intervalo de tempo e reproduz os beats */
+    var adjustedDiff = 0;
+    var adjustedInterval = interval;
+    const step = () => {
+        window.stepTimeout = setTimeout(() => {
+            totalTime += interval;
+            let elapsedTime = Date.now() - startTime;
+            diff = elapsedTime - totalTime;
+            allDiffs.push(diff);
+
+            if(allDiffs.length > 1){
+                let diff1 = allDiffs[totalBeats-1];
+                let diff2 = allDiffs[totalBeats];
+                if(diff2 > diff1){
+                    adjustedDiff = diff2 - diff1; 
+                    adjustedInterval = (totalTime / (totalBeats+1)) - adjustedDiff;
+                }
+            }
+            step();
+            playBeat();
+        }, adjustedInterval);
+    }
     playBeat();
-    window.timer = setInterval(playBeat, interval);
+    step();
     window.cron = setInterval(() => {timer()}, 1000);
 };
