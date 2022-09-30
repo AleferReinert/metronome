@@ -66,7 +66,6 @@ export default function start(bpm, beats, note_value){
         }
 
         // Quantidade de minutos para reproduzir (também toca o primeiro click para finalizar)
-        console.log(`mm: ${mm}, minutes-to-play: ${minutes_to_play.value}`);
         if(minutes_to_play.value > 0 && mm == minutes_to_play.value){
             if(beatsPerMeasure == 2){
                 pause();

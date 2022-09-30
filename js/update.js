@@ -64,24 +64,24 @@ export default function update(){
             }
 
             // Definindo limites pra não bugar o áudio nos denominadores 16(0.25) e 8 (0.5)
-            if(e_note_value.value == 0.25) {
-                bpm.max = 100;
-                
-                if(bpm.value > 100){
-                    bpm.value = 100;
-                    bpm_text.value = 100;
+            else if(e_note_value == e){
+                if(e_note_value.value == 0.25) {
+                    if(bpm.value > 100) {
+                        console.log('denominador 16 e maior que 100');
+                        bpm_text.value = 100;
+                        bpm.value = 100;
+                    }
+                    bpm.max = 100;
+                } else if(e_note_value.value == 0.5){
+                    if(bpm.value > 200){
+                        bpm.value = 200;
+                        bpm_text.value = 200;
+                    }
+                    bpm.max = 200;
+                } else {
+                    bpm.max = 280;
+                    bpm_text.value = bpm.value;
                 }
-                
-            } else if(e_note_value.value == 0.5){
-                bpm.max = 200;
-
-                if(bpm.value > 200){
-                    bpm.value = 200;
-                    bpm_text.value = 200;
-                }
-            } else {
-                bpm.max = 280;
-                bpm_text.value = bpm.value;
             }
             
             if(btn_play.classList.contains('active')){
