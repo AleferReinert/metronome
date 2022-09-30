@@ -19,10 +19,10 @@ window.addEventListener('DOMContentLoaded', () => {
     volume('#volume-4', 'third-triplet');
 
     // Measures e Minutes do topo
-    for(let i = 1; i <= 90; i++){
+    for(let i = 0; i <= 90; i++){
         measures_to_play.insertAdjacentHTML('beforeend', `<option value="${i}">${i}</option>`);
     }
-    for(let i = 1; i <= 90; i++){
+    for(let i = 0; i <= 90; i++){
         minutes_to_play.insertAdjacentHTML('beforeend', `<option value="${i}">${i}</option>`);
     }
 
