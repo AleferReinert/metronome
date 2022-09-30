@@ -1,5 +1,5 @@
 *.mscz
 *.psd
 .mscbackup
-js/metronome.js
+js/_metronome.js
 *.txt

@@ -1,15 +1,15 @@
-export default function volume(volume, audio){
-    const range = document.querySelector(`${volume} [type="range"]`);
-    const text = document.querySelector(`${volume} .volume-value`);
-    const e = document.getElementById(audio);
+export default function volume(volumeId, audioId){
+    const range = document.querySelector(`#${volumeId} [type="range"]`);
+    const text = document.querySelector(`#${volumeId} .volume-value`);
+    const audio = document.getElementById(audioId);
+    const accent = document.getElementById('accent');
 
     range.addEventListener('input', () => {
-        e.muted = false;
-        e.volume = range.value;
+        audio.muted = false;
+        audio.volume = range.value;
 
         // Primeiro beat
-        if(audio == 'quarter-note') {
-            const accent = document.getElementById('accent');
+        if(audioId == 'quarter-note') {
             accent.muted = false;
             accent.volume = range.value;
         }
