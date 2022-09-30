@@ -7,6 +7,8 @@ export default function start(bpm, beats, noteValue){
 
     const btnPlay = document.getElementById('play');
     const counter = document.getElementById('counter');
+    const beatsCounter = document.querySelector('#counters .beats');
+    const measuresCounter = document.querySelector('#counters .measures');
     const firstBeat = document.getElementById('first-beat');
     const quarterNote = document.getElementById('quarter-note');
     const eighthNote = document.getElementById('eighth-note');
@@ -16,6 +18,7 @@ export default function start(bpm, beats, noteValue){
     const measuresToPlay = document.getElementById('measures-to-play');
     const minutesToPlay = document.getElementById('minutes-to-play');
     const counterTimer = document.querySelector('#counters .timer');
+    const firstLight = document.querySelector('#lights li:first-child');
     const startTime = Date.now();
     let interval = Math.round((60000/bpm) * noteValue);
     let beatsPerMeasure = 1;
@@ -40,13 +43,35 @@ export default function start(bpm, beats, noteValue){
             timeFormat = `${mmFormat}:${ssFormat}`;
             counterTimer.innerText = timeFormat;
     }
+
+    /* 
+        Quando measures ou minutes estiverem definidos,
+        cria esse último beat para finalizar
+    */
+    function playFirstBeat(){
+        setTimeout(() => {
+            firstBeat.play();
+            beatsCounter.innerText = totalBeats+1;
+            measuresCounter.innerText = totalMeasures+1;
+            counter.innerText = '1';
+            firstLight.classList.add('active');
+
+            setTimeout(() => {
+                counter.innerText = '--';
+                firstLight.classList.remove('active');
+            }, interval);
+        }, interval);
+    }
+
     function playBeat(){
         counter.innerText = beatsPerMeasure;
         if(beatsPerMeasure % 2 == 1 || (beatsPerMeasure % 2 == 0) && beatsToPlay.value != 'odd'){
             if(beatsPerMeasure == 1){
+                firstBeat.currentTime = 0;
                 firstBeat.play();
                 totalMeasures++;
             } else {
+                quarterNote.currentTime = 0;
                 quarterNote.play();
             }
             
@@ -61,19 +86,21 @@ export default function start(bpm, beats, noteValue){
         }
         
         totalBeats++;
-        document.querySelector('#counters .beats').innerText = totalBeats;
-        document.querySelector('#counters .measures').innerText = totalMeasures;
+        beatsCounter.innerText = totalBeats;
+        measuresCounter.innerText = totalMeasures;
         beatsPerMeasure >= beats ? beatsPerMeasure = 1 : beatsPerMeasure++;
 
         // Quantidade de compassos para reproduzir (também toca o primeiro click para finalizar)
-        if(measuresToPlay.value > 0 && totalBeats == (measuresToPlay.value * beats)+1){
+        if(measuresToPlay.value > 0 && totalBeats == (measuresToPlay.value * beats)){
             stop(interval);
+            playFirstBeat();
         }
 
         // Quantidade de minutos para reproduzir (também toca o primeiro click para finalizar)
         if(minutesToPlay.value > 0 && mm == minutesToPlay.value){
-            if(beatsPerMeasure == 2){
+            if(beatsPerMeasure == 1){
                 stop(interval);
+                playFirstBeat();
             }
         }
     }
