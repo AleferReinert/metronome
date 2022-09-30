@@ -39,6 +39,7 @@ select {
     --light-grey: #f1f1f1;
     --dark-grey: #cdcdcd;
     --white-dark-theme: #989898;
+    --grey-background: #ebebeb;
 }
 
 option {
@@ -193,7 +194,7 @@ header > .container {
 }
 
 main {
-    padding-top: 65px;
+    padding-top: 55px;
     height: 100%;
 }
 
@@ -204,8 +205,11 @@ main .container {
     justify-content: space-between;
 }
 
-.main-middle {
+/* .main-middle {
     margin: 50px 0;
+} */
+.main-bottom {
+    padding-bottom: 15px;
 }
 
 /* Top */
@@ -214,6 +218,26 @@ main .container {
     justify-content: space-between;
     column-gap: 10px;
     align-items: center;
+}
+
+#selects-top {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 5px;
+}
+
+#selects-top li {
+    font-size: 0;
+}
+
+#selects-top li select {
+    padding: 10px 0;
+    text-align: right;
+    width: fit-content;
+}
+
+#selects-top li label {
+    font-weight: 500;
 }
 
 #svg-quarter-note {
@@ -274,7 +298,6 @@ main .container {
 
 #bpm {
     width: 100%;
-    margin-top: 20px;
     border: 0;
     background: var(--dark-grey);
     height: 5px;
@@ -375,12 +398,35 @@ label {
     transform: scale(2);
 }
 
+/* Contadores */
+#counters {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+#counters th {
+    font-weight: 400;
+    font-size: 12px;
+}
+
+#counters td {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+#counters th,
+#counters td {
+    padding: 0 10px;
+}
+
 /* Volumes */
 #volumes {
     display: flex;
     column-gap: 10px;
     justify-content: space-between;
-    margin-bottom: 15px;
 }
 
 #volumes .column {
@@ -391,7 +437,7 @@ label {
     padding: 10px 10px 0px;
     overflow: hidden;
     width: 100%;
-    background: #ebebeb;
+    background: var(--grey-background);
 }
 
 #volumes .volume-value {
@@ -414,6 +460,12 @@ label {
 #volumes .figure svg {
     width: 50px;
     height: 50px;
+}
+
+/* Basic mode */
+[data-mode="basic"] #selects-top,
+[data-mode="basic"] #counters {
+    display: none;
 }
 
 /* Theme Dark */

@@ -1,4 +1,4 @@
-export default function pause(timer){
+export default function pause(){
     const btn_play = document.getElementById("play");
     const counter = document.getElementById("counter");
 
@@ -6,5 +6,6 @@ export default function pause(timer){
     btn_play.title = "Tocar";
     counter.textContent = '--';
 
-    clearInterval(timer);
+    clearInterval(window.timer);
+    clearInterval(window.cron);
 };

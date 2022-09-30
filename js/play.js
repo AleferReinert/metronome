@@ -1,73 +1,87 @@
 import pause from "./pause.js";
 
-export default function play(bpm, beats, note_value){
-    
+export default function start(bpm, beats, note_value){
     bpm         == undefined ? bpm = document.getElementById('bpm').value : bpm;
     beats       == undefined ? beats = document.getElementById('beats').value : beats;
     note_value  == undefined ? note_value = document.getElementById('note-value').value : note_value;
 
     const btn_play = document.getElementById('play');
-    const odd_beats = document.getElementById('odd-beats')
-    let interval_beat = Math.round((60000/bpm) * note_value);
+    const counter = document.getElementById('counter');
+    const first_beat = document.getElementById('first-beat');
+    const quarter_note = document.getElementById('quarter-note');
+    const eighth_note = document.getElementById('eighth-note');
+    const second_triplet = document.getElementById('second-triplet');
+    const third_triplet = document.getElementById('third-triplet');
+    const beats_to_play = document.getElementById('beats-to-play');
+    const measures_to_play = document.getElementById('measures-to-play');
+    const minutes_to_play = document.getElementById('minutes-to-play');
+    const counter_timer = document.querySelector('#counters .timer');
+    let interval = Math.round((60000/bpm) * note_value);
+    let beatsPerMeasure = 1;
+    let totalBeats = 0;
+    let totalMeasures = 0;
 
-    function play_beat(index){
-        document.getElementById('counter').innerText = index;
-
-        // Semínimas
-        document.getElementById(`${index}-beat`).play();
-
-        // Contratempos
-        setTimeout(function(){
-            document.getElementById(`${index}-beat-middle`).play();
-        }, interval_beat / 2);
-
-        // Segunda nota da tercina
-        setTimeout(function(){
-            document.getElementById(`${index}-beat-triplet-2`).play();
-        }, interval_beat / 3);
-
-        // Terceira nota da tercina
-        setTimeout(function(){
-            document.getElementById(`${index}-beat-triplet-3`).play();
-        }, (interval_beat / 3) * 2);
-
-        // Classe active do CSS
-        const e = document.querySelector(`#lights li:nth-child(${index})`);
-        e.classList.add('active');
-        if(beats > 1){
-            setTimeout(function(){
-                e.classList.remove('active');
-            }, interval_beat);
-            
+    /* Timer */
+    let mm = 0,
+        ss = 0;
+    function timer() {
+        ss++;
+        if (ss == 60) {
+            ss = 0;
+            mm++;
+            mm == 60 ? mm = 0 : '';
         }
+        let mmFormat = mm.toString().padStart(2, '0'),
+            ssFormat = ss.toString().padStart(2, '0'),
+            timeFormat = `${mmFormat}:${ssFormat}`;
+            counter_timer.innerText = timeFormat;
     }
-    
-    let counter = 1;
-    function metronome(){
+    function play_beat(){
+        counter.innerText = beatsPerMeasure;
+        if(beatsPerMeasure % 2 == 1 || (beatsPerMeasure % 2 == 0) && beats_to_play.value != 'odd'){
+            if(beatsPerMeasure == 1){
+                first_beat.play();
+                totalMeasures++;
+            } else {
+                quarter_note.play();
+            }
+            
+            setTimeout(() => {eighth_note.play()}, interval / 2);
+            setTimeout(() => {second_triplet.play()}, interval / 3);
+            setTimeout(() => {third_triplet.play()}, (interval / 3) * 2);
 
-        // Reproduz se for impar
-        if(counter % 2 != 0){
-            play_beat(counter);
-        } 
-        
-        // Reproduz se for par e se "play only odd beats" estiver desativada
-        if(counter % 2 == 0 && !odd_beats.checked) {
-            play_beat(counter);
+            // Luz ativa
+            const e = document.querySelector(`#lights li:nth-child(${beatsPerMeasure})`);
+            e.classList.add('active');
+            setTimeout(() => {e.classList.remove('active')}, interval);
+        }
+        totalBeats++;
+        document.querySelector('#counters .beats').innerText = totalBeats;
+        document.querySelector('#counters .measures').innerText = totalMeasures;
+        beatsPerMeasure >= beats ? beatsPerMeasure = 1 : beatsPerMeasure++;
+
+        // Quantidade de compassos para reproduzir (também toca o primeiro click para finalizar)
+        if(totalBeats == (measures_to_play.value * beats)+1){
+            pause();
         }
 
-        if(counter >= beats){
-            counter = 1;
-        } else {
-            counter++;
+        // Quantidade de minutos para reproduzir (também toca o primeiro click para finalizar)
+        console.log(`mm: ${mm}, minutes-to-play: ${minutes_to_play.value}`);
+        if(minutes_to_play.value > 0 && mm == minutes_to_play.value){
+            if(beatsPerMeasure == 2){
+                pause();
+            }
         }
     }
 
     if(btn_play.classList.contains('active')){
-        pause(window.timer);
+        pause();
     } else {
-        metronome();
-        window.timer = setInterval(metronome, interval_beat);
+        play_beat();
         btn_play.classList.add('active');
         btn_play.title = 'Pausar';
+        counter_timer.innerText = '00:00';
+        window.timer = setInterval(play_beat, interval);
+        window.cron = setInterval(() => {timer()}, 1000);
     }
 };

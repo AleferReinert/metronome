@@ -6,21 +6,22 @@ import lights from './lights.js';
     Reinicia o metrônomo sempre que alguma opção for alterada
 */
 export default function update(){
+    const body = document.querySelector('body');
     const btn_play = document.getElementById('play');
     const bpm = document.getElementById('bpm');
     const e_beats = document.getElementById('beats');
     const e_note_value = document.getElementById('note-value');
     const e_accent_sound = document.getElementById('accent-sound');
     const e_click_sound = document.getElementById('click-sound');
-    const e_odd_beats = document.getElementById('odd-beats');
     const bpm_text = document.getElementById('bpm-text');
+    const advanced_mode = document.getElementById('advanced-mode');
 
     bpm.addEventListener('input', () => {
         bpm_text.value = bpm.value;
     });
 
     // Percorre cada elemento para ver se há mudanças
-    const elements = [bpm, e_beats, e_note_value, e_accent_sound, e_click_sound, e_odd_beats, bpm_text];
+    const elements = [bpm, e_beats, e_note_value, e_accent_sound, e_click_sound, bpm_text, advanced_mode];
     for(let i = 0; i < elements.length; i++){
         elements[i].addEventListener('change', () => {
             const e = elements[i];
@@ -50,6 +51,15 @@ export default function update(){
                     bpm.value = 280;
                 } else {
                     bpm.value = bpm_text.value;
+                }
+            }
+
+            // Modo avançado
+            else if(advanced_mode == e){
+                if(advanced_mode.checked){
+                    body.dataset.mode = 'advanced';
+                } else {
+                    body.dataset.mode = 'basic';
                 }
             }
 
