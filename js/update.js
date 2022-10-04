@@ -38,9 +38,8 @@ export default function update(){
         measuresToPlay, 
         minutesToPlay
     ];
-    for(let i = 0; i < elements.length; i++){
-        elements[i].addEventListener('change', () => {
-            const e = elements[i];
+    for(let e of elements){
+        e.addEventListener('change', () => {
 
             // Numerador
             if(beats == e){
