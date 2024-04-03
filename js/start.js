@@ -19,16 +19,12 @@ export default function start(bpm, beats, noteValue){
     const minutesToPlay = document.getElementById('minutes-to-play');
     const counterTimer = document.querySelector('#counters .timer');
     const firstLight = document.querySelector('#lights li:first-child');
-    const startTime = performance.now();
     let interval = Math.round((60000/bpm) * noteValue);
     let beatsPerMeasure = 1;
     let totalBeats = 0;
     let totalMeasures = 0;
     let mm = 0;
     let ss = 0;
-    let totalTime = 0;
-    let diff;
-    let allDiffs = [];
 
     /* Timer */
     function timer() {
@@ -109,16 +105,23 @@ export default function start(bpm, beats, noteValue){
     btnPlay.title = 'Stop';
     counterTimer.innerText = '00:00';
     
+    playBeat();
+    
     /* Ajusta o intervalo de tempo e reproduz os beats */
+    const startTime = performance.now();
+    let totalTime = 0;
+    let diff;
+    let allDiffs = [];
     var adjustedDiff = 0;
     var adjustedInterval = interval;
+
     const step = () => {
         window.stepTimeout = setTimeout(() => {
             totalTime += interval;
-            let elapsedTime = Date.now() - startTime;
+            let elapsedTime = performance.now() - startTime;
             diff = elapsedTime - totalTime;
             allDiffs.push(diff);
-
+    
             if(allDiffs.length > 1){
                 let diff1 = allDiffs[totalBeats-1];
                 let diff2 = allDiffs[totalBeats];
@@ -131,7 +134,6 @@ export default function start(bpm, beats, noteValue){
             playBeat();
         }, adjustedInterval);
     }
-    playBeat();
-    step();
+    step()
     window.cron = setInterval(() => {timer()}, 1000);
 };
