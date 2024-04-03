@@ -19,7 +19,7 @@ export default function start(bpm, beats, noteValue){
     const minutesToPlay = document.getElementById('minutes-to-play');
     const counterTimer = document.querySelector('#counters .timer');
     const firstLight = document.querySelector('#lights li:first-child');
-    const startTime = Date.now();
+    const startTime = performance.now();
     let interval = Math.round((60000/bpm) * noteValue);
     let beatsPerMeasure = 1;
     let totalBeats = 0;
