@@ -1,6 +1,4 @@
 # Metronome
-
-## Features
 - Dark and light themes
 - Basic and advanced mode
 - Time signatures 2 ~ 12 / 2, 4, 8, 16
@@ -15,5 +13,5 @@
 - Choose how many measures to play
 - Choose how many minutes to play
 
-
-[aleferreinert.github.io/metronome](https://aleferreinert.github.io/metronome "aleferreinert.github.io/metronome")
+## URL of Project
+Explore the project at the link: [Metronome](https://aleferreinert.github.io/metronome "aleferreinert.github.io/metronome")
